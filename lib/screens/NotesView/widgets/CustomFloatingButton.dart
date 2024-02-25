@@ -13,6 +13,7 @@ class CustomFloatingActionButton extends StatelessWidget {
       backgroundColor: Colors.greenAccent,
       onPressed: () {
         showModalBottomSheet(
+            isScrollControlled: true,
             context: context,
             builder: (BuildContext context) {
               return const CustomBottomSheet();

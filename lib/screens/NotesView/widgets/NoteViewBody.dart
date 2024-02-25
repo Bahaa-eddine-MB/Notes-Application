@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mynotes/Cubits/notes_cubit/notes_cubit_cubit.dart';
 import 'package:mynotes/screens/NotesView/widgets/CustomAppBar.dart';
 import 'package:mynotes/screens/NotesView/widgets/NotesListView.dart';
 
@@ -18,7 +20,7 @@ class NoteViewBody extends StatelessWidget {
           const SizedBox(
             height: 4,
           ),
-          const NotesListView()
+          const NotesListView(),
         ],
       ),
     );

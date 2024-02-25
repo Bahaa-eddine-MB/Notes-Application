@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:mynotes/Cubits/add_notes_cubit/add_notes_cubit.dart';
 import 'package:mynotes/Models/note_model.dart';
+import 'package:mynotes/screens/NotesView/widgets/ColorsListView.dart';
 import 'package:mynotes/screens/NotesView/widgets/CustomButton.dart';
 import 'package:mynotes/screens/NotesView/widgets/CustomTextField.dart';
 
@@ -45,16 +47,23 @@ class _AddNoteWidgetState extends State<AddNoteWidget> {
             maxLines: 5,
           ),
           const SizedBox(
+            height: 15,
+          ),
+          const ColorsListView(),
+          const SizedBox(
             height: 25,
           ),
           CustomButton(
             onPressed: () {
               if (formKey.currentState!.validate()) {
                 formKey.currentState!.save();
+                final dateTime = DateTime.now();
+                final formattedDateTime =
+                    DateFormat.yMMMMEEEEd().format(dateTime);
                 final noteModel = NoteModel(
                   title: title!,
                   subTitle: content!,
-                  date: DateTime.now().toString(),
+                  date: formattedDateTime,
                   color: Colors.blue.value,
                 );
                 BlocProvider.of<AddNotesCubit>(context).addNote(noteModel);
@@ -73,3 +82,38 @@ class _AddNoteWidgetState extends State<AddNoteWidget> {
     );
   }
 }
+
+class ColorItem extends StatelessWidget {
+  const ColorItem(
+      {super.key,
+      required this.color,
+      required this.isActive,
+      required this.onTap});
+  final Color color;
+  final bool isActive;
+  final Function() onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return isActive
+        ? GestureDetector(
+          onTap: onTap,
+          child: CircleAvatar(
+              radius: 30,
+              backgroundColor: Colors.white,
+              child: CircleAvatar(
+                radius: 22,
+                backgroundColor: color,
+              ),
+            ),
+        )
+        : GestureDetector(
+          onTap: onTap,
+          child: CircleAvatar(
+              radius: 30,
+              backgroundColor: color,
+            ),
+        );
+  }
+}
+
