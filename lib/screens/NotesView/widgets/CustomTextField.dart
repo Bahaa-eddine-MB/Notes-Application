@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mynotes/theme/constans.dart';
+import 'package:mynotes/Conts/constans.dart';
 
 class CustomTextField extends StatelessWidget {
   const CustomTextField(
@@ -8,10 +8,12 @@ class CustomTextField extends StatelessWidget {
       this.maxLines = 1,
       this.onSaved,
       this.initialText,
-      this.onChanged});
+      this.onChanged,
+      this.isSearch = false});
   final String hint;
   final int maxLines;
   final String? initialText;
+  final bool isSearch;
   final Function(String?)? onSaved;
   final Function(String?)? onChanged;
   @override
@@ -29,6 +31,7 @@ class CustomTextField extends StatelessWidget {
       initialValue: initialText,
       cursorColor: Constans.kPrimaryColor,
       decoration: InputDecoration(
+        contentPadding: isSearch ? const EdgeInsets.symmetric(vertical: 0, horizontal: 15) : null,
         hintText: hint,
         border: buildBorder(color: Colors.white),
         enabledBorder: buildBorder(color: Colors.white),
